@@ -20,6 +20,8 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
     const elapsedTimeSeconds = (Date.now() - startTime) / 1000;
     console.log(`Elapsed time: ${elapsedTimeSeconds.toFixed(2)} seconds`);
     startTime = Date.now();
+    // let youtube = document.getElementByID("youtube");
+    // console.log("YO CHECK sTHIS OUT "+youtube);
   } 
   // Update this section so that it tracks when a user changes the URL
   // HINT: You're going to have to use if() statements

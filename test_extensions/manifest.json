@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
-    "name": "Baron Test Extension",
-    "description": "Toy Example Extension",
+    "name": "Test Extension :D",
+    "description": "Testing things out",
     "version": "1.0",
     "action": {
       "default_popup": "test.html",
