@@ -4,11 +4,12 @@
     "description": "Testing things out",
     "version": "1.0",
     "action": {
-      "default_popup": "test.html",
+      "default_popup": "popup.html",
       "default_icon": "my_extension_pic.png"
     },
     "permissions": [
-      "tabs"
+      "tabs",
+      "storage"
     ],
     "background": {
       "service_worker": "background.js",
