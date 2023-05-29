@@ -1,4 +1,3 @@
-
 let startTime = Date.now();
 let currentWebsite = new URL ("http://www.default.com");
 
@@ -93,4 +92,3 @@ function resetStorage() {
       console.log(result);
   });
 }
-
