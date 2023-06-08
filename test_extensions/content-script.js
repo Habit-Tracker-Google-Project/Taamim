@@ -1,7 +1,6 @@
-const Chart = ;
-
-let urls = [];
-let times = [];
+Chart = window.chart;
+urls = [];
+times = [];
 
 function pullUrlsFromDisk() {
   chrome.storage.local.get("urls").then((result) => { // taburl is the key
@@ -28,7 +27,7 @@ for (let i = 0; i < urls.length; i++){
 // 1st chart -------------------------------------------------------------------------
 
 // attributes and data of the bar chart 
-let data = {
+data = {
   labels: ['Youtube','github','Google Docs','etc'], // array of website names (this is placeholder array)
   datasets: [{
     label: 'Most Time Spent on These Tabs (sec)', // title of the chart
@@ -44,7 +43,7 @@ let data = {
 };
 
 // config 
-const config1 = {
+config1 = {
   type: 'bar',
   data,
   options: {
@@ -57,7 +56,7 @@ const config1 = {
 };
 
 // render init block
-const barChart = new Chart(
+barChart = new Chart(
   document.getElementById('barChart'),
   config1
 );
@@ -83,7 +82,7 @@ data = {
 };
 
 // config 
-const config2 = {
+config2 = {
   type: 'pie',
   data,
   options: {  
@@ -91,7 +90,7 @@ const config2 = {
 };
 
 // render init block
-const polarChart = new Chart(
+polarChart = new Chart(
   document.getElementById('polarChart'),
   config2
 );
@@ -123,7 +122,7 @@ data = {
 };
 
 // config 
-const config3 = {
+config3 = {
   type: 'line',
   data,
   options: {  
@@ -131,7 +130,7 @@ const config3 = {
 };
 
 // render init block
-const lineChart = new Chart(
+lineChart = new Chart(
   document.getElementById('lineChart'),
   config3
 );
