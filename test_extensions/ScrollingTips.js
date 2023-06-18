@@ -1,6 +1,7 @@
 function randomizeTip() { // will cycle the tips messages
     const quotes = [
       "It takes around 2 months to make a habit and up to 2 months to break one, keep up the commitment!",
+<<<<<<< HEAD
       "The best time to plant a tree was 20 years ago. The second best time is now.",
       "Learn as if you will live forever, live like you will die tomorrow.",
       "If you only do what you can do, you will never be more than you are now.",
@@ -16,6 +17,9 @@ function randomizeTip() { // will cycle the tips messages
       "Not everything is a lesson. Sometimes, you just fail.",
       "It is important to draw wisdom from different places. If you take it from only one place, it becomes rigid and stale.",
       "If used consistently, habit trackers have been proven to be effective at building and breaking habits."
+=======
+      "\'The best time to plant a tree was 20 years ago. The second best time is now\' - Chinese Proverb"
+>>>>>>> 297d30cf448d914cc15d39b90a050a5d3dab2ffe
     ] // we can add more quotes later
     var text = document.getElementById("scroll-text");
     let instanceCounter = 0;
