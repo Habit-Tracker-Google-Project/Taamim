@@ -1,6 +1,13 @@
 let startTime = Date.now();
 let currentWebsite = new URL ("http://www.default.com");
 
+let urls = [];
+let times = [];
+
+getData();
+console.log(urls);
+console.log(times);
+
 chrome.tabs.onActivated.addListener(async function(activeInfo) {
 
   const tab = await chrome.tabs.get(activeInfo.tabId);
@@ -18,15 +25,13 @@ chrome.tabs.onActivated.addListener(async function(activeInfo) {
 
     storeCountInSession(currentWebsite.hostname, elapsedTimeSeconds); // stores the info assigned as (hostname : time)
     storeInDisk(currentWebsite.hostname, elapsedTimeSeconds);
+    console.log(urls);
+    console.log(times);
+    updateData(currentWebsite.hostname, elapsedTimeSeconds);
+    storeArrays();
+    
     currentWebsite = new URL (tab.url);
-    console.log(currentWebsite);
-
-    if (tab.url === "https://habit-tracker-google-project.github.io/HabitTracker/HabitTracker.html"){
-      chrome.scripting.executeScript({
-        target: { tabId: tab.id },
-        files: ["content-script.js"]
-      })
-    } 
+    //console.log(currentWebsite);
 
   }
 
@@ -51,15 +56,14 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 
     storeCountInSession(currentWebsite.hostname, elapsedTimeSeconds); // stores the info assigned as (hostname : time)
     storeInDisk(currentWebsite.hostname, elapsedTimeSeconds);
-    currentWebsite = new URL (tab.url);
-    console.log(currentWebsite);
+    console.log(urls);
+    console.log(times);
+    updateData(currentWebsite.hostname, elapsedTimeSeconds);
+    storeArrays();
 
-    if (tab.url === "https://habit-tracker-google-project.github.io/HabitTracker/HabitTracker.html"){
-      chrome.scripting.executeScript({
-        target: { tabId: tab.id },
-        files: ["content-script.js"]
-      })
-    } 
+    currentWebsite = new URL (tab.url);
+    //console.log(currentWebsite);
+
   }   
 });
 
@@ -110,4 +114,48 @@ function resetStorage() {
   chrome.storage.session.clear().then((result) => {
       console.log(result);
   });
+}
+
+function updateData(taburl, time){
+  if (indexOf(urls, taburl) >= 0){
+    const index = indexOf(urls, taburl);
+    times[index] += time;
+  } else {
+    push(urls, taburl);
+    push(times, time);
+  }
+}
+
+function getData(){
+  chrome.storage.local.get(['urls']).then((result) => {
+    // If the entry doesn't exist in our lookup, create one and set it's count to 1
+    if (result !== undefined) {
+        urls = result;
+    }
+  });
+
+  chrome.storage.local.get(['times']).then((result) => {
+    // If the entry doesn't exist in our lookup, create one and set it's count to 1
+    if (result !== undefined) {
+        times = result;
+    }
+  });
+}
+
+function storeArrays(){
+  chrome.storage.local.set({ 'urls': urls });
+  chrome.storage.local.set({ 'times': times });
+}
+
+function indexOf(arr, target){
+  for (let i = 0; i < arr.length; i++){
+    if (target === arr[i]){
+      return i;
+    }
+  }
+  return -1;
+}
+
+function push(arr, element){
+  arr[arr.length] = element;
 }

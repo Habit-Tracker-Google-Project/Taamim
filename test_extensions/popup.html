@@ -4,14 +4,20 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="todo.css">
     <link rel="stylesheet" href="calendar.css">
+    <link rel="stylesheet" href="chart.css">
 </head>
 <body>
   <div id="buttons">
     <button id="todolist">To-Do List</button>
     <button id="timetracker">Time Tracker</button>
     <button id="calendarbtn">Calendar</button>
+    <button id="statsbtn">Statistics</button>
   </div>
   
+  <div id="scroll-container"> 
+    <div id="scroll-text">Tips or quotes will occassionally be displayed here!</div>
+  </div>
+
   <div class="todo">
     <h1>To-Do List</h1>
     <form id="add-item-form">
@@ -67,8 +73,29 @@
 
   <div id="modalBackDrop"></div>
 
+  <div id="stats-section">
+    <div id="StatBox">
+      <p></p>
+    </div>
+
+    <div class="chartBoxBar">
+      <canvas id="barChart"></canvas>
+    </div>
+
+    <div class="chartBoxPolar">
+      <canvas id="polarChart"></canvas>
+    </div>
+
+    <div class="chartBoxLine">
+      <canvas id="lineChart"></canvas>
+    </div>
+  </div>
+
+  <script src="npm-chart.js"></script>
+  <script src="chart.js"></script>
   <script src="popup.js"></script>
   <script src="todo.js"></script>
   <script src="calendar.js"></script>
+  <script src="ScrollingTips.js"></script>
 </body>
 </html>
