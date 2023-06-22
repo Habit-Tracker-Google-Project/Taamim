@@ -3,7 +3,8 @@ body {
     font-size: 16px;
     margin: 0;
     padding: 0;
-    width: 800px;
+    width: 780px;
+    overflow-x: hidden;
   }
   
   #splits {
@@ -30,99 +31,49 @@ body {
     border-radius: 5px;
   }
   
-  #buttons {
-    margin: 20px;
-    text-align: center;
-  }
-  
-  #buttons button {
-    margin: 10px;
+  #todolist, #timetracker, #calendarbtn, #statsbtn {
     padding: 10px 20px;
     background-color: #4CAF50;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin: 20px;
+    text-align: center;
+  }
+
+  #todolist{
+    margin-left: 15%;
   }
   
-  #buttons button:hover {
+  #todolist:hover, #timetracker:hover, #calendarbtn:hover, #statsbtn:hover {
     background-color: #3e8e41;
   }
   
   #stats-section {
     position: relative;
-    margin: 20px;
-  }
-  
-  #StatBox {
-    margin-bottom: 50px;
-    width: 100%;
-    height: 400px; /* Adjust the height as needed */
-    overflow: auto; /* Add scrollbars if content exceeds the height */
-  }
-  
-  .StatBox {
-    margin-bottom: 20px;
-    border-radius: 20px;
-    border: solid 3px rgba(54, 162, 235, 1);
-    background: white;
-    padding: 20px;
-  }
-  
-  .StatBox p {
-    margin: 0;
-  }
-  
-  .chartBoxBar {
-    position: absolute;
-    left: 20%;
-    width: 27%;
-    bottom: 7%;
-    padding: 20px;
-    border-radius: 20px;
-    border: solid 3px rgba(54, 162, 235, 1);
-    background: white;
-  }
-  
-  .chartBoxPolar {
-    position: absolute;
-    right: 20%;
-    bottom: 7%;
-    width: 25%;
-    padding: 20px;
-    border-radius: 20px;
-    border: solid 3px rgba(54, 162, 235, 1);
-    background: white;
-  }
-  
-  .chartBoxLine {
-    position: absolute;
-    right: 20%;
-    top: 5.3%;
-    width: 25%;
-    padding: 20px;
-    border-radius: 20px;
-    border: solid 3px rgba(54, 162, 235, 1);
-    background: white;
+    height: 1175px;
   }
   
   #scroll-container {
     border-style: solid;
-    border-radius: 2px;
+    border-top-width: 4px;
+    border-bottom-width: 4px;
+    border-left-width: 0px;
+    border-right-width: 0px;
     border-color: rgb(47, 172, 255);
     background-color:lightskyblue;
     top: 100px;
-    left: -2px;
     height: 25px;
-    width: 98%;
-    padding: 5px;
+    width: 100%;
+    padding-top: 5px;
     overflow: hidden;
     transition-delay: 300s;
   }
   
   #scroll-text {
     /* animation properties */
-    font-size: 22px;
+    font-size: 19px;
     animation: my-animation 20s linear infinite;
     color: solid black;
   }

@@ -9,6 +9,24 @@
 #header button {
   background-color:#92a1d1;
 }
+
+#nextButton {
+  position: relative;
+  right: 15px;
+}
+
+#backButton {
+  position: relative;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  right: 10px;
+}
+
+#nextButton:hover, #backButton:hover {
+  background-color: #6573a1;
+}
+
 #container {
   width: 770px;
 }
@@ -18,7 +36,7 @@
   color: #247BA0;
 }
 #weekdays div {
-  width: 89px;
+  width: 100px;
   padding: 10px;
 }
 #calendar {
@@ -29,7 +47,7 @@
 }
 .day {
   width: 100px;
-  padding: 5px;
+  padding: 10px;
   height: 100px;
   cursor: pointer;
   box-sizing: border-box;
@@ -43,7 +61,7 @@
 
 .day .padding {
   background-color: #ffe6a1;
-  border-radius: 10px;
+  border-radius: 20px;
   border-color: black;
   border-style: fixed;
 }

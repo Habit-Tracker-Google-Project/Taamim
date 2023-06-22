@@ -5,8 +5,6 @@ let urls = [];
 let times = [];
 
 getData();
-console.log(urls);
-console.log(times);
 
 chrome.tabs.onActivated.addListener(async function(activeInfo) {
 
@@ -25,10 +23,11 @@ chrome.tabs.onActivated.addListener(async function(activeInfo) {
 
     storeCountInSession(currentWebsite.hostname, elapsedTimeSeconds); // stores the info assigned as (hostname : time)
     storeInDisk(currentWebsite.hostname, elapsedTimeSeconds);
-    console.log(urls);
-    console.log(times);
     updateData(currentWebsite.hostname, elapsedTimeSeconds);
     storeArrays();
+
+    console.log(urls);
+    console.log(times);
     
     currentWebsite = new URL (tab.url);
     //console.log(currentWebsite);
@@ -56,10 +55,11 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 
     storeCountInSession(currentWebsite.hostname, elapsedTimeSeconds); // stores the info assigned as (hostname : time)
     storeInDisk(currentWebsite.hostname, elapsedTimeSeconds);
-    console.log(urls);
-    console.log(times);
     updateData(currentWebsite.hostname, elapsedTimeSeconds);
     storeArrays();
+
+    console.log(urls);
+    console.log(times);
 
     currentWebsite = new URL (tab.url);
     //console.log(currentWebsite);
@@ -127,17 +127,17 @@ function updateData(taburl, time){
 }
 
 function getData(){
-  chrome.storage.local.get(['urls']).then((result) => {
-    // If the entry doesn't exist in our lookup, create one and set it's count to 1
+  chrome.storage.local.get('urls').then((result) => {
+    console.log(result);
     if (result !== undefined) {
-        urls = result;
+        urls = Object.values(result.urls);
     }
   });
 
-  chrome.storage.local.get(['times']).then((result) => {
-    // If the entry doesn't exist in our lookup, create one and set it's count to 1
+  chrome.storage.local.get('times').then((result) => {
+    console.log(result);
     if (result !== undefined) {
-        times = result;
+        times = Object.values(result.times);
     }
   });
 }
@@ -148,7 +148,7 @@ function storeArrays(){
 }
 
 function indexOf(arr, target){
-  for (let i = 0; i < arr.length; i++){
+  for (let i = 0; i < Object.keys(arr).length; i++){
     if (target === arr[i]){
       return i;
     }
@@ -157,5 +157,9 @@ function indexOf(arr, target){
 }
 
 function push(arr, element){
-  arr[arr.length] = element;
+  const length = Object.keys(arr).length;
+  console.log(length);
+  arr[length] = element;
 }
+
+// BIG REMINDER: ARRAY IS AN OBJECT INSIDE OF JAVASCRIPT, NOT A DATA STRUCTURE WHICH MEANS IT DOESNT HAVE BUILT IN FUNCTIONS NOR THING LIKE ARRAY.LENGTH

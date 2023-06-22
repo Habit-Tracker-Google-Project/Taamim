@@ -1,118 +1,147 @@
+
 // Data pulling ----------------------------------------------------
 
-let urls = localStorage.getItem('urls') ? JSON.parse(localStorage.getItem('urls')) : [];
-let times = localStorage.getItem('times') ? JSON.parse(localStorage.getItem('times')) : [];
+async function url() {
+  return new Promise((resolve) => {
+    chrome.storage.local.get(['urls'], (result) => {
+      if (result.urls !== undefined) {
+        resolve(Object.values(result.urls));
+      } else {
+        resolve([]);
+      }
+    });
+  });
+}
 
-console.log(urls);
-console.log(times);
+async function time() {
+  return new Promise((resolve) => {
+    chrome.storage.local.get(['times'], (result) => {
+      if (result.times !== undefined) {
+        resolve(Object.values(result.times));
+      } else {
+        resolve([]);
+      }
+    });
+  });
+}
 
-// 1st chart -------------------------------------------------------------------------
+function bubblesort (arr1, arr2){
+  if (arr2.length <= 1){
+    return;
+  }
+  let loop = true;
+  while (loop){
+    let prev2 = arr2[0];
+    let prev1 = arr1[0];
+    loop = false;
+    for (let i = 1; i < arr2.length; i++){
+      if (arr2[i] > prev2){
 
-// attributes and data of the bar chart 
-let data = {
-  labels: urls, // array of website names (this is placeholder array)
-  datasets: [{
-    label: 'Most Time Spent on These Tabs (sec)', // title of the chart
-    data: times, // array of times (this is a placeholder array)
-    backgroundColor: [
-      'rgba(54, 162, 235, 0.2)',
-    ],
-    borderColor: [
-      'rgba(54, 162, 235, 1)',
-    ],
-    borderWidth: 1
-  }]
-};
+        arr2[i - 1] = arr2[i];
+        arr2[i] = prev2;
 
-// config 
-const config1 = {
-  type: 'bar',
-  data,
-  options: {
-    scales: { // puts measurements on the side aka the scale of the x and y axis
-      y: {
-        beginAtZero: true
+        arr1[i - 1] = arr1[i];
+        arr1[i] = prev1;
+
+        loop = true;
+      }else{
+        prev2 = arr2[i];
+        prev1 = arr1[i];
       }
     }
   }
-};
+}
 
-// render init block
-const barChart = new Chart(
-  document.getElementById('barChart'),
-  config1
-);
+// prerequisite: array is sorted using bubble sort
+function organize (arr1, arr2){
 
-// 2nd chart -------------------------------------------------------------------------
-
-// attributes and data of the pie chart
-data = {
-  labels: urls,
-  datasets: [{
-    label: 'Chrome Activity',
-    data: times,
-    backgroundColor: [
-      'rgba(255, 26, 104, 0.2)',
-      'rgba(54, 162, 235, 0.2)',
-    ],
-    borderColor: [
-      'rgba(255, 26, 104, 1)',
-      'rgba(54, 162, 235, 1)',
-    ],
-    borderWidth: 1
-  }]
-};
-
-// config 
-const config2 = {
-  type: 'pie',
-  data,
-  options: {  
+  if (arr2.length <= 30){
+    return;
   }
-};
 
-// render init block
-const polarChart = new Chart(
-  document.getElementById('polarChart'),
-  config2
-);
-
-// 3nd chart -------------------------------------------------------------------------
-
-// attributes and data of the pie chart
-data = {
-  labels: ['January','February','March','April','May','June','July','August','September','October','November','December'],
-  datasets: [{
-    label: 'Awesomeness',
-    data: [0.2, 0.6, 0.1, 0.1, 0.2, 0.6, 0.1, 0.1, 0.2, 0.6, 0.1, 0.1],
-    borderColor: [
-      'rgba(255, 26, 104, 1)',
-      'rgba(54, 162, 235, 1)',
-      'rgba(255, 206, 86, 1)',
-      'rgba(75, 192, 192, 1)',
-      'rgba(255, 26, 104, 1)',
-      'rgba(54, 162, 235, 1)',
-      'rgba(255, 206, 86, 1)',
-      'rgba(75, 192, 192, 1)',
-      'rgba(255, 26, 104, 1)',
-      'rgba(54, 162, 235, 1)',
-      'rgba(255, 206, 86, 1)',
-      'rgba(75, 192, 192, 1)',
-    ],
-    borderWidth: 1
-  }]
-};
-
-// config 
-const config3 = {
-  type: 'line',
-  data,
-  options: {  
+  let total = 0;
+  for (let i = arr2.length - 1; i > 30; i--){
+    total += arr2.pop();
+    arr1.pop();
   }
-};
 
-// render init block
-const lineChart = new Chart(
-  document.getElementById('lineChart'),
-  config3
-);
+  arr2[30] = total;
+  arr1[30] = "other";
+  
+}
+
+
+async function load(){
+  // 1st chart -------------------------------------------------------------------------
+
+  let urls = await url();
+  let times = await time();
+
+  bubblesort(urls, times);
+  organize(urls, times);
+
+  // attributes and data of the bar chart 
+  let data = {
+    labels: (urls), // array of website names (this is placeholder array)
+    datasets: [{
+      label: ' Seconds', // title of the chart
+      data: (times), // array of times (this is a placeholder array)
+      backgroundColor: [
+        'rgba(54, 162, 235, 0.2)',
+      ],
+      borderColor: [
+        'rgba(54, 162, 235, 1)',
+      ],
+      borderWidth: 1
+    }]
+  };
+
+  // config 
+  const config1 = {
+    type: 'bar',
+    data,
+    options: {
+      scales: { // puts measurements on the side aka the scale of the x and y axis
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  };
+
+  // render init block
+  const barChart = new Chart(
+    document.getElementById('barChart'),
+    config1
+  );
+
+  // 2nd chart -------------------------------------------------------------------------
+
+  // attributes and data of the pie chart
+  data = {
+    labels: (urls),
+    datasets: [{
+      label: ' Seconds',
+      data: (times),
+      backgroundColor: [
+        'rgba(255, 26, 104, 0.2)',
+      ],
+      hoverOffset: 4
+    }]
+  };
+
+  // config 
+  const config2 = {
+    type: 'pie',
+    data: data,
+  };
+
+  // render init block
+  const pieChart = new Chart(
+    document.getElementById('pieChart'),
+    config2
+  );
+
+}
+
+load();
